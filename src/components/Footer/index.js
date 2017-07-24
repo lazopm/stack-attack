@@ -5,9 +5,9 @@ import ss from './styles';
 
 const Footer = () =>
     <div className={css(ss.Container)}>
-        {"Built by "}
+        {"built by "}
         <a 
-            className={css(ss.Container)}
+            className={css(ss.Link)}
             href="http://lazopm.com"
         >
             Pablo Lazo
