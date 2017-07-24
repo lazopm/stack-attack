@@ -5,7 +5,7 @@ const styles = {
     maxHeight: 200,
     overflowY: 'scroll',
 };
-const LETTERS = ['a', 'b', 'c', 'd'];
+const LETTERS = ['A', 'B', 'C', 'D'];
 const Answer = ({ body, letter }) =>
     <div>
         {letter}
