@@ -6,6 +6,7 @@ import ss from './styles';
 import Header from 'components/Header';
 import Question from 'components/Question';
 import Answers from 'components/Answers';
+import Footer from 'components/Footer';
 
 import {
     newQuestion,
@@ -36,6 +37,7 @@ class App extends Component {
                         retry={newQuestion}
                     />
                 </div>
+                <Footer/>
             </div>
         );
     }

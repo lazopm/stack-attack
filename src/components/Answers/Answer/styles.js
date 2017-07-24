@@ -4,7 +4,6 @@ import {
     lightGrey,
     grey,
     lightGreen,
-    green,
     darkGrey,
 } from 'constants/colors';
 
