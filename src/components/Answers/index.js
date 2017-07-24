@@ -1,24 +1,30 @@
 import React from 'react';
 import { shuffle } from 'lodash/fp';
+import { css } from 'aphrodite';
 
-const styles = {
-    maxHeight: 200,
-    overflowY: 'scroll',
-};
+import ss from './styles';
+
 const LETTERS = ['A', 'B', 'C', 'D'];
+
 const Answer = ({ body, letter }) =>
-    <div>
-        {letter}
-        <div 
-            style={styles}
-            dangerouslySetInnerHTML={{__html: body}}
-        />
-    </div>
+    <div className={css(ss.AnswerContainer)}>
+        <div className={css(ss.LetterContainer)}>
+            <div className={css(ss.Letter)}>
+                {letter}
+            </div>
+        </div>
+        <div className={css(ss.BodyContainer)}>
+            <div 
+                className={css(ss.Body)}
+                dangerouslySetInnerHTML={{__html: body}}
+            />
+        </div>
+    </div>;
 
 const Answers = ({ answers }) => {
     const shuffled = shuffle(answers);
     return (
-        <div>
+        <div className={css(ss.Container)}>
             {shuffled.map(({ id, ...props }, i) =>
                 <Answer
                     key={id}

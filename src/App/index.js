@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { css } from 'aphrodite';
 
-import { newQuestion } from 'store/actions';
+import ss from './styles';
 import Answers from 'components/Answers';
 import Question from 'components/Question';
+
+import { newQuestion } from 'store/actions';
 
 class App extends Component {
     componentWillMount() {
@@ -12,7 +15,7 @@ class App extends Component {
     render() {
         const { question, answers } = this.props;
         return (
-            <div>
+            <div className={css(ss.Container)}>
                 <Question {...question} />
                 <Answers answers={answers} />
             </div>
