@@ -1,3 +1,5 @@
+//creates a url queryString from an object
+//assumes values are strings
 export const queryString = params => Object.entries(params)
     .map(([name, value]) => `${name}=${value}`)
     .join('&');
