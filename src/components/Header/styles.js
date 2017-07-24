@@ -3,7 +3,7 @@ import { blue, grey, lightGrey } from 'constants/colors';
 
 export default StyleSheet.create({
     Container: {
-        marginBottom: '1rem',
+        marginBottom: '2rem',
         width: '100%',
         background: lightGrey,
         overflowY: 'auto',

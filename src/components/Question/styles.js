@@ -4,7 +4,7 @@ import { blue } from 'constants/colors';
 export default StyleSheet.create({
     Container: {
         background: blue,
-        marginBottom: '1rem',
+        marginBottom: '2rem',
         '@media (min-width: 1000px)': {
             width: '1000px',
         },
