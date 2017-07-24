@@ -6,8 +6,8 @@ import reducers from './reducers';
 const create = (initialState = {}) =>
     createStore(
         reducers,
-        applyMiddleware(thunk),
         initialState,
+        applyMiddleware(thunk),
     );
 
 export { create as createStore };
