@@ -24,10 +24,11 @@ class App extends Component {
             result,
             chooseAnswer,
             newQuestion,
+            score,
         } = this.props;
         return (
             <div>
-                <Header/>
+                <Header score={score}/>
                 <div className={css(ss.Container)}>
                     <Question {...question} />
                     <Answers
@@ -49,15 +50,15 @@ const mapDispatchToProps = {
 };
 
 const matchStateToProps = ({
-    busy,
     question,
     answers,
     result,
+    score,
 }) => ({
-    busy,
     question,
     answers,
     result,
+    score,
 });
 
 export default connect(matchStateToProps, mapDispatchToProps)(App);

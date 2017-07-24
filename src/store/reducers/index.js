@@ -4,6 +4,7 @@ import answers from './answers'
 import busy from './answers'
 import usedIds from './usedIds'
 import result from './result'
+import score from './score'
 
 export default combineReducers({
     question,
@@ -11,4 +12,5 @@ export default combineReducers({
     busy,
     usedIds,
     result,
+    score,
 });
