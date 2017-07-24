@@ -22,6 +22,6 @@ export default StyleSheet.create({
         background: 'white',
         overflowY: 'auto',
         minHeight: '200px',
-        maxHeight: '300px',
+        maxHeight: '350px',
     },
 });
