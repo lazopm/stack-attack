@@ -20,6 +20,7 @@ const QUESTIONS_PARAMS = {
     filter: '!)5IW-5QuertwCfyRNgMq20xNXdEN',
     pagesize: 100,
     key: API_KEY,
+    tagged: 'javascript',
 };
 
 const FULL_QUESTION_PARAMS = {

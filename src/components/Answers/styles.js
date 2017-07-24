@@ -13,6 +13,7 @@ export default StyleSheet.create({
     AnswerContainer: {
         display: 'flex',
         minHeight: '200px',
+        cursor: 'pointer',
         borderWidth: '0 1px 1px 1px',
         borderStyle: 'solid',
         borderColor: grey,

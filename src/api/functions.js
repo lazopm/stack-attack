@@ -3,8 +3,8 @@ import {
     map,
     get,
     filter,
-    sortBy,
 } from 'lodash/fp';
+import { randomIndices } from 'utils';
 
 //filters out questions that don't have an accepted answer 
 //or don't have enough answers to use as options
@@ -24,11 +24,12 @@ export const filterUnusedQuestions = (ids, usedIds) => filter(
     ids,
 );
 
-//returns a set of answers that includes the accepted answer
-//and up to 3 other top scoring answers
+//returns a set of 4 answers that includes the accepted answer
 export const getAnswerSet = answers => {
-    const sorted = sortBy('score', answers);
-    const accepted = sorted.find(a => a.is_accepted === true);
-    sorted.splice(sorted.indexOf(accepted), 1);
-    return [accepted, ...sorted.slice(0, 3)];
+    const accepted = answers.find(a => a.is_accepted === true);
+    answers.splice(answers.indexOf(accepted), 1);
+    return [
+        accepted,
+        ...randomIndices(answers.length, 3).map(i => answers[i]),
+    ]
 };
