@@ -1,5 +1,5 @@
 # Stack Attack
-Try to guess what the accepted answer is.  
+Try to guess the accepted answer for a random stack overflow question.  
 See it in action [here](https://lazopm.github.io/stack-attack).
 
 ## Installation
