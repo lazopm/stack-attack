@@ -30,11 +30,16 @@ export const ANSWERED = 'ANSWERED';
 
 export const chooseAnswer = id =>
     (dispatch, getState) => {
-        const { question } = getState();
+        const { question, usedIds } = getState();
         dispatch({
             type: ANSWERED, 
             questionId: question.id,  
             chosen: id,
             correct: question.acceptedAnswerId,
         });
+        //store usedIds
+        window.localStorage.setItem(
+            'used-ids',
+            [...usedIds, question.id]
+        );
     };
