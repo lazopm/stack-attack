@@ -20,7 +20,9 @@ class App extends Component {
         const {
             question,
             answers,
+            result,
             chooseAnswer,
+            newQuestion,
         } = this.props;
         return (
             <div>
@@ -29,7 +31,9 @@ class App extends Component {
                     <Question {...question} />
                     <Answers
                         answers={answers}
+                        result={result}
                         choiceHandler={chooseAnswer}
+                        retry={newQuestion}
                     />
                 </div>
             </div>
@@ -45,11 +49,13 @@ const mapDispatchToProps = {
 const matchStateToProps = ({
     busy,
     question,
-    answers
+    answers,
+    result,
 }) => ({
     busy,
     question,
     answers,
+    result,
 });
 
 export default connect(matchStateToProps, mapDispatchToProps)(App);

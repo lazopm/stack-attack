@@ -1,45 +1,39 @@
 import React from 'react';
-import { shuffle } from 'lodash/fp';
 import { css } from 'aphrodite';
 
 import ss from './styles';
+import Answer from './Answer';
+import Result from './Result';
 
 const LETTERS = ['A', 'B', 'C', 'D'];
-
-const Answer = ({
-    body,
-    letter,
-    choose,
-}) =>
-    <div 
-        className={css(ss.AnswerContainer)}
-        onClick={choose}
-    >
-        <div className={css(ss.LetterContainer)}>
-            <div className={css(ss.Letter)}>
-                {letter}
-            </div>
-        </div>
-        <div className={css(ss.BodyContainer)}>
-            <div 
-                className={css(ss.Body)}
-                dangerouslySetInnerHTML={{__html: body}}
-            />
-        </div>
-    </div>;
-
-const Answers = ({ answers, choiceHandler, result }) => {
-    const shuffled = shuffle(answers);
+const Answers = ({
+    answers,
+    result,
+    choiceHandler,
+    retry,
+}) => {
     return (
         <div className={css(ss.Container)}>
-            {shuffled.map(({ id, ...props }, i) =>
-                <Answer
-                    key={id}
-                    letter={LETTERS[i]}
-                    choose={() => choiceHandler(id)}
-                    {...props}
-                />
-            )}
+            {answers.map(({ id, ...props }, i) => {
+                if (result && result.chosen === id) {
+                    return (
+                        <Result
+                            key={id}
+                            correct={result.chosen === result.correct}
+                            retry={retry}
+                        />
+                    );
+                }
+                return (
+                    <Answer
+                        key={id}
+                        letter={LETTERS[i]}
+                        correct={result && result.correct === id}
+                        clickHandler={!result && (() => choiceHandler(id))}
+                        {...props}
+                    />
+                )
+            })}
         </div>
     );
 }

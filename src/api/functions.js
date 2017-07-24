@@ -3,6 +3,7 @@ import {
     map,
     get,
     filter,
+    shuffle,
 } from 'lodash/fp';
 import { randomIndices } from 'utils';
 
@@ -28,8 +29,8 @@ export const filterUnusedQuestions = (ids, usedIds) => filter(
 export const getAnswerSet = answers => {
     const accepted = answers.find(a => a.is_accepted === true);
     answers.splice(answers.indexOf(accepted), 1);
-    return [
+    return shuffle([
         accepted,
         ...randomIndices(answers.length, 3).map(i => answers[i]),
-    ]
+    ])
 };
