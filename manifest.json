@@ -1,6 +1,6 @@
 {
-  "short_name": "Stack-Overload",
-  "name": "Stack-Overload - A hopefully fun guessing game",
+  "short_name": "Stack Attack",
+  "name": "Stack Attack - A hopefully fun guessing game",
   "start_url": "./index.html",
   "display": "standalone",
   "theme_color": "#000000",
