@@ -6,15 +6,15 @@ export const FETCH_QUESTION_ERROR = 'FETCH_QUESTION_ERROR';
 
 export const newQuestion = () =>
     async (dispatch, getState) => {
+        const { usedIds } = getState();
         dispatch({
             type: FETCH_QUESTION,
         });
         try {
-            const { question, answers } = await getQuestion([]);
+            const question = await getQuestion(usedIds);
             dispatch({
                 type: FETCH_QUESTION_SUCCESS,
-                question,
-                answers,
+                ...question,
             });
         }
         catch(error) {

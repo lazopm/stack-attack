@@ -101,9 +101,11 @@ export const getQuestion = async usedIds => {
         answers,
     } = await fetchFullQuestion(id);
     return {
-        id,
-        title,
-        body,
+        question: {
+            id,
+            title,
+            body,
+        },
         answers: getAnswerSet(answers),
     };
 };

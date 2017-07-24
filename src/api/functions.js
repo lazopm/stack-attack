@@ -24,5 +24,5 @@ export const getAnswerSet = answers => {
     const sorted = sortBy('score', answers);
     const accepted = sorted.find(a => a.is_accepted === true);
     sorted.splice(sorted.indexOf(accepted), 1);
-    return [accepted, ...sorted.slice(0, 4)]
+    return [accepted, ...sorted.slice(0, 3)];
 };
