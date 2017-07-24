@@ -6,8 +6,15 @@ import ss from './styles';
 
 const LETTERS = ['A', 'B', 'C', 'D'];
 
-const Answer = ({ body, letter }) =>
-    <div className={css(ss.AnswerContainer)}>
+const Answer = ({
+    body,
+    letter,
+    choose,
+}) =>
+    <div 
+        className={css(ss.AnswerContainer)}
+        onClick={choose}
+    >
         <div className={css(ss.LetterContainer)}>
             <div className={css(ss.Letter)}>
                 {letter}
@@ -21,7 +28,7 @@ const Answer = ({ body, letter }) =>
         </div>
     </div>;
 
-const Answers = ({ answers }) => {
+const Answers = ({ answers, choiceHandler, result }) => {
     const shuffled = shuffle(answers);
     return (
         <div className={css(ss.Container)}>
@@ -29,6 +36,7 @@ const Answers = ({ answers }) => {
                 <Answer
                     key={id}
                     letter={LETTERS[i]}
+                    choose={() => choiceHandler(id)}
                     {...props}
                 />
             )}

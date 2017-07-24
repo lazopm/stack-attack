@@ -9,7 +9,6 @@ export default (state = [], { type, ...action }) => {
                 ({answer_id, body, is_accepted}) => ({
                     id: answer_id,
                     body,
-                    accepted: is_accepted,
                 }));
         default:
             return state;

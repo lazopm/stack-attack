@@ -98,14 +98,17 @@ const getUnusedQuestionId = async usedIds => {
 export const getQuestion = async usedIds => {
     const id = await getUnusedQuestionId(usedIds);
     const {
-        title, body,
+        title,
+        body,
         answers,
+        accepted_answer_id,
     } = await fetchFullQuestion(id);
     return {
         question: {
             id,
             title,
             body,
+            acceptedAnswerId: accepted_answer_id 
         },
         answers: getAnswerSet(answers),
     };

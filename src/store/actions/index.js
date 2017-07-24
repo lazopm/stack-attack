@@ -25,3 +25,16 @@ export const newQuestion = () =>
             });
         }
     };
+
+export const ANSWERED = 'ANSWERED';
+
+export const chooseAnswer = id =>
+    (dispatch, getState) => {
+        const { question } = getState();
+        dispatch({
+            type: ANSWERED, 
+            questionId: question.id,  
+            chosen: id,
+            correct: question.acceptedAnswerId,
+        });
+    };
