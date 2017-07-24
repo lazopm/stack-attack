@@ -15,8 +15,17 @@ class App extends Component {
         );
     }
 };
+
 const mapDispatchToProps = {
     newQuestion,
 };
 
-export default connect(null, mapDispatchToProps)(App);
+const matchStateToProps = ({
+    question,
+    answers
+}) => ({
+    question,
+    answers,
+});
+
+export default connect(matchStateToProps, mapDispatchToProps)(App);

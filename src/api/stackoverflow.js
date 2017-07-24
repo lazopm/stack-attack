@@ -1,18 +1,37 @@
 import { queryString, randomItem } from 'utils';
-import { compose, map, get, filter } from 'lodash/fp';
+import {
+    filterUnusedQuestions,
+    getViableQuestionIds,
+    getAnswerSet,
+} from './functions';
+import {
+    OUT_OF_QUESTIONS_ERROR,
+    FETCH_ERROR,
+} from './errors';
 
+const API_KEY = '*M4waxPwy7Pjf3RYvnoAgw((';
 const BASE_URL = 'https://api.stackexchange.com/2.2';
 const QUESTIONS_URL = `${BASE_URL}/questions`;
+
 const QUESTIONS_PARAMS = {
-    order: 'desc',
-    pagesize: 100,
-    sort: 'votes',
     site: 'stackoverflow',
+    sort: 'votes',
+    order: 'desc',
     filter: '!)5IW-5QuertwCfyRNgMq20xNXdEN',
-    key: '*M4waxPwy7Pjf3RYvnoAgw((',
+    pagesize: 100,
+    key: API_KEY,
 };
 
-//fetches a list of 100 top voted questions
+const FULL_QUESTION_PARAMS = {
+    site: 'stackoverflow',
+    sort: 'activity',
+    order: 'desc',
+    filter: `!.Iwe-B09iLj5*28HiD3kSdxODduDe`,
+    key: API_KEY,
+};
+
+//fetches a list of top voted questions
+//used minimal filter for speed
 const fetchQuestions = async page => {
     const query = queryString({
         ...QUESTIONS_PARAMS,
@@ -20,60 +39,71 @@ const fetchQuestions = async page => {
     });
     const res = await fetch(`${QUESTIONS_URL}?${query}`);
     if (res.ok) {
-        const { items } = await res.json();
+        const { items, has_more } = await res.json();
         if (items.length) {
-            return items; 
+            return {
+                questions: items,
+                has_more,
+            };
         }
-        else {
-            throw new Error('ERROR!LEN');
-        }
+        throw FETCH_ERROR;
     }
-    else {
-        throw new Error('ERROR!');
-    }
+    throw FETCH_ERROR;
 };
 
-//filters out questions that don't have an accepted answer 
-//or don't have enough answers to use as options
-const filterViableQuestions = filter(q =>
-    q.accepted_answer_id && q.answer_count > 3
-);
-
-//returns an array of viable question ids
-const getViableQuestionIds = compose(
-    map(get('question_id')),
-    filterViableQuestions,
-);
-
-//filters out questions that have already been used
-const filterUnusedQuestions = (ids, usedIds) => filter(
-    id => !usedIds.includes(id),
-    ids,
-);
+//fetches a full question and its answers
+const fetchFullQuestion = async id => {
+    const query = queryString(FULL_QUESTION_PARAMS);
+    const res = await fetch(`${QUESTIONS_URL}/${id}?${query}`);
+    if (res.ok) {
+        const { items } = await res.json();
+        if (items.length) {
+            return items[0];
+        }
+        throw FETCH_ERROR;
+    }
+    throw FETCH_ERROR;
+};
 
 let viableQuestionIds = [];
-let page = 1;
-export const getQuestion = async usedQuestionIds => {
+let nextPage = 1;
+const getUnusedQuestionId = async usedIds => {
     let unusedViableIds = filterUnusedQuestions(
         viableQuestionIds,
-        usedQuestionIds,
+        usedIds,
     );
     //keep fetching new pages until we have unused viable ids
     while(unusedViableIds.length < 1) {
-        const newQuestions = await fetchQuestions(page);
-        const newViableQuestionIds = getViableQuestionIds(newQuestions);
-        page++;
-        viableQuestionIds = [
-            ...viableQuestionIds,
-            ...newViableQuestionIds,
-        ];
-        unusedViableIds = filterUnusedQuestions(
-            viableQuestionIds,
-            usedQuestionIds,
-        );
+        if (nextPage) {
+            const { questions, has_more } = await fetchQuestions(nextPage);
+            nextPage = has_more ? nextPage + 1 : false;
+            viableQuestionIds = [
+                ...viableQuestionIds,
+                ...getViableQuestionIds(questions),
+            ];
+            unusedViableIds = filterUnusedQuestions(
+                viableQuestionIds,
+                usedIds,
+            );
+        }
+        else {
+            throw OUT_OF_QUESTIONS_ERROR;
+        }
     }
     //pick a random unused viable question
-    const id = randomItem(unusedViableIds);
-    console.log('picked', id);
-    return Promise.resolve(id);
+    return randomItem(unusedViableIds);
+}
+
+export const getQuestion = async usedIds => {
+    const id = await getUnusedQuestionId(usedIds);
+    const {
+        title, body,
+        answers,
+    } = await fetchFullQuestion(id);
+    return {
+        id,
+        title,
+        body,
+        answers: getAnswerSet(answers),
+    };
 };
