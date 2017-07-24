@@ -1,4 +1,10 @@
-import { compose, map, get, filter, sortBy } from 'lodash/fp';
+import {
+    compose,
+    map,
+    get,
+    filter,
+    sortBy,
+} from 'lodash/fp';
 
 //filters out questions that don't have an accepted answer 
 //or don't have enough answers to use as options

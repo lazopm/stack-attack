@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { newQuestion } from 'store/actions';
-import Answer from 'components/Answer';
+import Answers from 'components/Answers';
 import Question from 'components/Question';
 
 class App extends Component {
@@ -14,9 +14,7 @@ class App extends Component {
         return (
             <div>
                 <Question {...question} />
-                {answers.map(({ id, ...props }) =>
-                    <Answer key={id} {...props} />
-                )}
+                <Answers answers={answers} />
             </div>
         );
     }
