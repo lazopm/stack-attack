@@ -9,19 +9,29 @@ const QUESTIONS_PARAMS = {
     sort: 'votes',
     site: 'stackoverflow',
     filter: '!)5IW-5QuertwCfyRNgMq20xNXdEN',
+    key: '*M4waxPwy7Pjf3RYvnoAgw((',
 };
 
 //fetches a list of 100 top voted questions
 const fetchQuestions = async page => {
-    const params = {
+    const query = queryString({
         ...QUESTIONS_PARAMS,
         page,
-    };
-    const res = await fetch(`${QUESTIONS_URL}?${queryString(params)}`);
-    const { items } = await res.json();
-    return items; 
+    });
+    const res = await fetch(`${QUESTIONS_URL}?${query}`);
+    if (res.ok) {
+        const { items } = await res.json();
+        if (items.length) {
+            return items; 
+        }
+        else {
+            throw new Error('ERROR!LEN');
+        }
+    }
+    else {
+        throw new Error('ERROR!');
+    }
 };
-
 
 //filters out questions that don't have an accepted answer 
 //or don't have enough answers to use as options
@@ -37,7 +47,7 @@ const getViableQuestionIds = compose(
 
 //filters out questions that have already been used
 const filterUnusedQuestions = (ids, usedIds) => filter(
-    id => usedIds.includes(id),
+    id => !usedIds.includes(id),
     ids,
 );
 
@@ -49,14 +59,21 @@ export const getQuestion = async usedQuestionIds => {
         usedQuestionIds,
     );
     //keep fetching new pages until we have unused viable ids
-    while(!unusedViableIds.length) {
+    while(unusedViableIds.length < 1) {
         const newQuestions = await fetchQuestions(page);
+        const newViableQuestionIds = getViableQuestionIds(newQuestions);
         page++;
         viableQuestionIds = [
             ...viableQuestionIds,
-            getViableQuestionIds(newQuestions),
+            ...newViableQuestionIds,
         ];
+        unusedViableIds = filterUnusedQuestions(
+            viableQuestionIds,
+            usedQuestionIds,
+        );
     }
     //pick a random unused viable question
     const id = randomItem(unusedViableIds);
+    console.log('picked', id);
+    return Promise.resolve(id);
 };

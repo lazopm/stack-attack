@@ -5,7 +5,7 @@ import { newQuestion } from 'store/actions';
 
 class App extends Component {
     componentWillMount() {
-        this.props.newQuestion([]);
+        this.props.newQuestion();
     }
     render() {
         return (

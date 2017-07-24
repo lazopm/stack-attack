@@ -10,7 +10,7 @@ export const newQuestion = () =>
             type: FETCH_QUESTION,
         });
         try {
-            const { question, answers } = await getQuestion();
+            const { question, answers } = await getQuestion([]);
             dispatch({
                 type: FETCH_QUESTION_SUCCESS,
                 question,
@@ -18,6 +18,7 @@ export const newQuestion = () =>
             });
         }
         catch(error) {
+            console.log(error);
             dispatch({
                 type: FETCH_QUESTION_ERROR,
                 error,
