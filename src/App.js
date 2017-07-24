@@ -1,6 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-const App = () =>
-    <div>hello world</div>
-    
-export default App;
+import { newQuestion } from 'store/actions';
+
+class App extends Component {
+    componentWillMount() {
+        this.props.newQuestion([]);
+    }
+    render() {
+        return (
+            <div>
+                hello world
+            </div>
+        );
+    }
+};
+const mapDispatchToProps = {
+    newQuestion,
+};
+
+export default connect(null, mapDispatchToProps)(App);
