@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { css } from 'aphrodite';
 
 import ss from './styles';
-import Answers from 'components/Answers';
+import Header from 'components/Header';
 import Question from 'components/Question';
+import Answers from 'components/Answers';
 
 import { newQuestion } from 'store/actions';
 
@@ -15,9 +16,12 @@ class App extends Component {
     render() {
         const { question, answers } = this.props;
         return (
-            <div className={css(ss.Container)}>
-                <Question {...question} />
-                <Answers answers={answers} />
+            <div>
+                <Header/>
+                <div className={css(ss.Container)}>
+                    <Question {...question} />
+                    <Answers answers={answers} />
+                </div>
             </div>
         );
     }

@@ -1,9 +1,10 @@
 import { StyleSheet } from 'aphrodite';
-import { blue, lightGrey } from 'constants/colors';
+import { blue } from 'constants/colors';
 
 export default StyleSheet.create({
     Container: {
         background: blue,
+        marginBottom: '1rem',
         '@media (min-width: 1000px)': {
             width: '1000px',
         },

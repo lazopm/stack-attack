@@ -1,10 +1,11 @@
 import { StyleSheet } from 'aphrodite';
-import { red, grey, lightGrey, darkGrey } from 'constants/colors';
+import { babyBlue, grey, lightGrey, darkGrey } from 'constants/colors';
 
 export default StyleSheet.create({
     Container: {
         display: 'flex',
         flexDirection: 'column',
+        borderTop: `solid 1px ${grey}`,
         '@media (min-width: 1000px)': {
             width: '1000px',
         },
@@ -12,13 +13,18 @@ export default StyleSheet.create({
     AnswerContainer: {
         display: 'flex',
         minHeight: '200px',
-        borderBottom: `1px solid ${grey}`,
+        borderWidth: '0 1px 1px 1px',
+        borderStyle: 'solid',
+        borderColor: grey,
+        background: lightGrey, 
+        ':hover': {
+            background: babyBlue,
+        },
     },
     LetterContainer: {
         display: 'flex',
         flex: '0 0 5rem',
         alignItems: 'center',
-        background: lightGrey,
     },
     Letter: {
         flexGrow: 1,
@@ -29,12 +35,12 @@ export default StyleSheet.create({
     BodyContainer: {
         flex: '1 1 auto',
         display: 'flex',
-        background: lightGrey, 
         padding: '1rem',
         paddingLeft: 0,
         overflowX: 'auto',
     },
     Body: {
+        color: 'initial',
         flexGrow: 1,
         padding: '0 1rem',
         background: 'white',

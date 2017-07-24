@@ -1,5 +1,4 @@
 import { StyleSheet } from 'aphrodite';
-import { blue, lightGrey } from 'constants/colors';
 
 export default StyleSheet.create({
     Container: {
