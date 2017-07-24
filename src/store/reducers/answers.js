@@ -5,7 +5,12 @@ import {
 export default (state = [], { type, ...action }) => {
     switch (type) {
         case FETCH_QUESTION_SUCCESS:
-            return [...action.answers];
+            return action.answers.map(
+                ({answer_id, body, is_accepted}) => ({
+                    id: answer_id,
+                    body,
+                    accepted: is_accepted,
+                }));
         default:
             return state;
     }
