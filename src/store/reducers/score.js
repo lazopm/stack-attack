@@ -1,12 +1,10 @@
-import {
-    ANSWERED,
-} from 'store/actions'; 
+import { ANSWERED } from 'store/actions';
 
 export default (state = [0, 0], { type, ...action }) => {
-    const [ correct, answered ] = state;
+    const [correct, answered] = state;
     switch (type) {
         case ANSWERED:
-            return [ 
+            return [
                 action.correct === action.chosen ? correct + 1 : correct,
                 answered + 1,
             ];

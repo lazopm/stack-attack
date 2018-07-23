@@ -4,10 +4,7 @@ import {
     getViableQuestionIds,
     getAnswerSet,
 } from './functions';
-import {
-    OUT_OF_QUESTIONS_ERROR,
-    FETCH_ERROR,
-} from './errors';
+import { OUT_OF_QUESTIONS_ERROR, FETCH_ERROR } from './errors';
 
 const API_KEY = '*M4waxPwy7Pjf3RYvnoAgw((';
 const BASE_URL = 'https://api.stackexchange.com/2.2';
@@ -69,12 +66,9 @@ const fetchFullQuestion = async id => {
 let viableQuestionIds = [];
 let nextPage = 1;
 const getUnusedQuestionId = async usedIds => {
-    let unusedViableIds = filterUnusedQuestions(
-        viableQuestionIds,
-        usedIds,
-    );
+    let unusedViableIds = filterUnusedQuestions(viableQuestionIds, usedIds);
     //keep fetching new pages until we have unused viable ids
-    while(unusedViableIds.length < 1) {
+    while (unusedViableIds.length < 1) {
         if (nextPage) {
             const { questions, has_more } = await fetchQuestions(nextPage);
             nextPage = has_more ? nextPage + 1 : false;
@@ -82,18 +76,14 @@ const getUnusedQuestionId = async usedIds => {
                 ...viableQuestionIds,
                 ...getViableQuestionIds(questions),
             ];
-            unusedViableIds = filterUnusedQuestions(
-                viableQuestionIds,
-                usedIds,
-            );
-        }
-        else {
+            unusedViableIds = filterUnusedQuestions(viableQuestionIds, usedIds);
+        } else {
             throw OUT_OF_QUESTIONS_ERROR;
         }
     }
     //pick a random unused viable question
     return randomItem(unusedViableIds);
-}
+};
 
 export const getQuestion = async usedIds => {
     const id = await getUnusedQuestionId(usedIds);
@@ -108,7 +98,7 @@ export const getQuestion = async usedIds => {
             id,
             title,
             body,
-            acceptedAnswerId: accepted_answer_id 
+            acceptedAnswerId: accepted_answer_id,
         },
         answers: getAnswerSet(answers),
     };

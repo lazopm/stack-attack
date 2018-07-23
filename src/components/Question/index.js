@@ -3,21 +3,19 @@ import { css } from 'aphrodite';
 
 import ss from './styles';
 
-const Question = ({
-    title,
-    body,
-}) =>
+const Question = ({ title, body }) => (
     <div className={css(ss.Container)}>
         <div className={css(ss.Content)}>
             <h2
                 className={css(ss.Heading)}
-                dangerouslySetInnerHTML={{__html: title}}
+                dangerouslySetInnerHTML={{ __html: title }}
             />
             <div
                 className={css(ss.Body)}
-                dangerouslySetInnerHTML={{__html: body}}
+                dangerouslySetInnerHTML={{ __html: body }}
             />
         </div>
-    </div>;
+    </div>
+);
 
 export default Question;

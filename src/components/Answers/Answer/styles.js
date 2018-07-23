@@ -15,7 +15,7 @@ export default StyleSheet.create({
         borderWidth: '0 1px 1px 1px',
         borderStyle: 'solid',
         borderColor: grey,
-        background: lightGrey, 
+        background: lightGrey,
     },
     Correct: {
         background: lightGreen,

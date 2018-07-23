@@ -8,10 +8,7 @@ import Question from 'components/Question';
 import Answers from 'components/Answers';
 import Footer from 'components/Footer';
 
-import {
-    newQuestion,
-    chooseAnswer,
-} from 'store/actions';
+import { newQuestion, chooseAnswer } from 'store/actions';
 
 class App extends Component {
     componentWillMount() {
@@ -28,7 +25,7 @@ class App extends Component {
         } = this.props;
         return (
             <div>
-                <Header score={score}/>
+                <Header score={score} />
                 <div className={css(ss.Container)}>
                     <Question {...question} />
                     <Answers
@@ -38,27 +35,25 @@ class App extends Component {
                         retry={newQuestion}
                     />
                 </div>
-                <Footer/>
+                <Footer />
             </div>
         );
     }
-};
+}
 
 const mapDispatchToProps = {
     newQuestion,
     chooseAnswer,
 };
 
-const matchStateToProps = ({
-    question,
-    answers,
-    result,
-    score,
-}) => ({
+const matchStateToProps = ({ question, answers, result, score }) => ({
     question,
     answers,
     result,
     score,
 });
 
-export default connect(matchStateToProps, mapDispatchToProps)(App);
+export default connect(
+    matchStateToProps,
+    mapDispatchToProps,
+)(App);

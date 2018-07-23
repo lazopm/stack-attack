@@ -6,12 +6,7 @@ import Answer from './Answer';
 import Result from './Result';
 
 const LETTERS = ['A', 'B', 'C', 'D'];
-const Answers = ({
-    answers,
-    result,
-    choiceHandler,
-    retry,
-}) => {
+const Answers = ({ answers, result, choiceHandler, retry }) => {
     return (
         <div className={css(ss.Container)}>
             {answers.map(({ id, ...props }, i) => {
@@ -32,10 +27,10 @@ const Answers = ({
                         clickHandler={!result && (() => choiceHandler(id))}
                         {...props}
                     />
-                )
+                );
             })}
         </div>
     );
-}
+};
 
 export default Answers;

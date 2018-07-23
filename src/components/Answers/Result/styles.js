@@ -1,10 +1,5 @@
 import { StyleSheet } from 'aphrodite';
-import {
-    red,
-    darkRed,
-    green,
-    darkGreen
-} from 'constants/colors';
+import { red, darkRed, green, darkGreen } from 'constants/colors';
 
 export default StyleSheet.create({
     Container: {

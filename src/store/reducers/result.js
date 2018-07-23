@@ -1,7 +1,4 @@
-import {
-    ANSWERED,
-    FETCH_QUESTION_SUCCESS,
-} from 'store/actions'; 
+import { ANSWERED, FETCH_QUESTION_SUCCESS } from 'store/actions';
 
 export default (state = null, { type, ...action }) => {
     switch (type) {
@@ -9,7 +6,7 @@ export default (state = null, { type, ...action }) => {
             return null;
         case ANSWERED:
             return {
-                ...action
+                ...action,
             };
         default:
             return state;

@@ -1,6 +1,4 @@
-import {
-    FETCH_QUESTION_SUCCESS,
-} from 'store/actions'; 
+import { FETCH_QUESTION_SUCCESS } from 'store/actions';
 
 export default (state = null, { type, ...action }) => {
     switch (type) {

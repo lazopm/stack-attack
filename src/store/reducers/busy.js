@@ -2,7 +2,7 @@ import {
     FETCH_QUESTION,
     FETCH_QUESTION_SUCCESS,
     FETCH_QUESTION_ERROR,
-} from 'store/actions'; 
+} from 'store/actions';
 
 export default (state = false, { type, ...action }) => {
     switch (type) {
